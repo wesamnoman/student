@@ -19,5 +19,5 @@ public interface StudentService {
 
     void addAllStudents(List<StudentDto> list);
 
-    List<StudentDto> getStudentByClass(String clas);
+    
 }

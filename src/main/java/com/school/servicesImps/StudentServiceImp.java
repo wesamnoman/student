@@ -51,9 +51,7 @@ public class StudentServiceImp implements StudentService {
         studentRepository.saveAll(li);
     }
 
-    public List<StudentDto> getStudentByClass(String clas) {
-        return List.of();
-    }
+
 
 
 }
