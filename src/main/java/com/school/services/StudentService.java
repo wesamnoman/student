@@ -18,4 +18,6 @@ public interface StudentService {
     Optional<StudentDto> getStudentById(int id);
 
     void addAllStudents(List<StudentDto> list);
+
+    List<StudentDto> getStudentByClass(String clas);
 }
