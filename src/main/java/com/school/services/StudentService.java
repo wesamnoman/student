@@ -19,5 +19,5 @@ public interface StudentService {
 
     void addAllStudents(List<StudentDto> list);
 
-    
+
 }

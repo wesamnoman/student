@@ -5,6 +5,7 @@ import com.school.servicesImps.StudentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class StudentController {
     @Autowired
     private StudentServiceImp studentServiceImp;
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping("/getStudents")
     public ResponseEntity<List<StudentDto>> studentList() {
         if (studentServiceImp.getStudents().isEmpty()) {
@@ -32,6 +34,7 @@ public class StudentController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addStudents")
     public ResponseEntity<String> addStudents(@RequestBody List<StudentDto> list) {
         for (StudentDto s : list)
@@ -46,6 +49,7 @@ public class StudentController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addStudent")
     public ResponseEntity<String> addStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentName().isEmpty() || studentDto.getStudentAge() == 0 || studentDto.getStudentClass().isEmpty()) {
@@ -59,6 +63,7 @@ public class StudentController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
     @GetMapping("/getStudentById/{id}")
     public ResponseEntity<Optional<StudentDto>> getStudentById(@PathVariable("id") int id) {
 
@@ -68,6 +73,7 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateStudent")
     public ResponseEntity<String> updateStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentId() == 0 || studentDto.getStudentName().isEmpty() || studentDto.getStudentClass().isEmpty() || studentDto.getStudentAge() == 0) {
