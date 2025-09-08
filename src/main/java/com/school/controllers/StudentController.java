@@ -49,7 +49,7 @@ public class StudentController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+   @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addStudent")
     public ResponseEntity<String> addStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentName().isEmpty() || studentDto.getStudentAge() == 0 || studentDto.getStudentClass().isEmpty()) {
@@ -73,8 +73,9 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PutMapping("/updateStudent")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentId() == 0 || studentDto.getStudentName().isEmpty() || studentDto.getStudentClass().isEmpty() || studentDto.getStudentAge() == 0) {
 
