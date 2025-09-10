@@ -18,7 +18,7 @@ public class StudentController {
     @Autowired
     private StudentServiceImp studentServiceImp;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/getStudents")
     public ResponseEntity<List<StudentDto>> studentList() {
         if (studentServiceImp.getStudents().isEmpty()) {
@@ -34,7 +34,7 @@ public class StudentController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/addStudents")
     public ResponseEntity<String> addStudents(@RequestBody List<StudentDto> list) {
         for (StudentDto s : list)
@@ -49,7 +49,7 @@ public class StudentController {
 
     }
 
-   @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/addStudent")
     public ResponseEntity<String> addStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentName().isEmpty() || studentDto.getStudentAge() == 0 || studentDto.getStudentClass().isEmpty()) {
@@ -63,7 +63,7 @@ public class StudentController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/getStudentById/{id}")
     public ResponseEntity<Optional<StudentDto>> getStudentById(@PathVariable("id") int id) {
 
@@ -75,7 +75,7 @@ public class StudentController {
 
 
     @PutMapping("/updateStudent")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> updateStudent(@RequestBody StudentDto studentDto) {
         if (studentDto.getStudentId() == 0 || studentDto.getStudentName().isEmpty() || studentDto.getStudentClass().isEmpty() || studentDto.getStudentAge() == 0) {
 
